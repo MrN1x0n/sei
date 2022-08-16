@@ -6,9 +6,9 @@ sleep 2 && curl -s https://raw.githubusercontent.com/MrN1x0n/MrN1x0n/main/logo.s
 
 
 # set vars
-if [ ! $NODENAME ]; then
-	read -p "Enter node name: " NODENAME
-	echo 'export NODENAME='$NODENAME >> $HOME/.bash_profile
+if [ ! $NODENAMESEI ]; then
+	read -p "Enter node name: " NODENAMESEI
+	echo 'export NODENAMESEI='$NODENAMESEI >> $HOME/.bash_profile
 fi
 SEI_PORT=12
 if [ ! $WALLET ]; then
@@ -19,7 +19,7 @@ echo "export SEI_PORT=${SEI_PORT}" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 echo '================================================='
-echo -e "Your node name: \e[1m\e[32m$NODENAME\e[0m"
+echo -e "Your node name: \e[1m\e[32m$NODENAMESEI\e[0m"
 echo -e "Your wallet name: \e[1m\e[32m$WALLET\e[0m"
 echo -e "Your chain name: \e[1m\e[32m$SEI_CHAIN_ID\e[0m"
 echo -e "Your port: \e[1m\e[32m$SEI_PORT\e[0m"
@@ -58,7 +58,7 @@ seid config keyring-backend test
 seid config node tcp://localhost:${SEI_PORT}657
 
 # init
-seid init $NODENAME --chain-id $SEI_CHAIN_ID
+seid init $NODENAMESEI --chain-id $SEI_CHAIN_ID
 
 # download genesis and addrbook
 wget -qO $HOME/.sei/config/genesis.json "https://raw.githubusercontent.com/sei-protocol/testnet/main/sei-incentivized-testnet/genesis.json"
