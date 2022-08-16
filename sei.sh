@@ -1,14 +1,8 @@
 #!/bin/bash
 
-echo -e "\e[1m\e[32m1. Updating packages... \e[0m" && sleep 1
-# update
-sudo apt update && sudo apt upgrade -y
+sudo apt install curl
 
-echo -e "\e[1m\e[32m2. Installing dependencies... \e[0m" && sleep 1
-# packages
-sudo apt install curl build-essential git wget jq make gcc tmux -y
-
-sleep 1 && curl -s https://raw.githubusercontent.com/MrN1x0n/MrN1x0n/main/logo.sh | bash && sleep 1
+sleep 2 && curl -s https://raw.githubusercontent.com/MrN1x0n/MrN1x0n/main/logo.sh | bash && sleep 1
 
 
 # set vars
@@ -32,6 +26,13 @@ echo -e "Your port: \e[1m\e[32m$SEI_PORT\e[0m"
 echo '================================================='
 sleep 2
 
+echo -e "\e[1m\e[32m1. Updating packages... \e[0m" && sleep 1
+# update
+sudo apt update && sudo apt upgrade -y
+
+echo -e "\e[1m\e[32m2. Installing dependencies... \e[0m" && sleep 1
+# packages
+sudo apt install build-essential git wget jq make gcc tmux -y
 
 # install go
 ver="1.18.2"
