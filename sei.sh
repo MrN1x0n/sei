@@ -49,7 +49,7 @@ echo -e "\e[1m\e[32m3. Downloading and building binaries... \e[0m" && sleep 1
 # download binary
 cd $HOME
 git clone https://github.com/sei-protocol/sei-chain.git && cd sei-chain
-git checkout 1.0.6beta
+git checkout 1.1.0beta
 make install 
 
 # config
@@ -138,3 +138,18 @@ sudo systemctl restart seid
 echo '=============== SETUP FINISHED ==================='
 echo -e 'To check logs: \e[1m\e[32mjournalctl -u seid -f -o cat\e[0m'
 echo -e "To check sync status: \e[1m\e[32mcurl -s localhost:${SEI_PORT}657/status | jq .result.sync_info\e[0m"
+
+sudo systemctl stop seid
+sudo apt update
+sudo apt install lz4 -y
+sudo systemctl stop seid
+seid tendermint unsafe-reset-all --home $HOME/.sei --keep-addr-book
+
+cd $HOME/.sei
+rm -rf data
+
+SNAP_NAME=$(curl -s https://snapshots1-testnet.nodejumper.io/sei-testnet/ | egrep -o ">atlantic-1.*\.tar.lz4" | tr -d ">")
+curl https://snapshots1-testnet.nodejumper.io/sei-testnet/${SNAP_NAME} | lz4 -dc - | tar -xf -
+
+sudo systemctl restart seid
+sudo journalctl -u seid -f --no-hostname -o cat
